@@ -10,4 +10,9 @@ class Category extends Model
         'name',
         'calss_id'
     ];
+
+    public function Type()
+    {
+        return $this->hasMany(Type::class);
+    }
 }

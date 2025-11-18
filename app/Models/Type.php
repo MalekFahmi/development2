@@ -11,4 +11,9 @@ class Type extends Model
         'edition',
         'category_id'
     ];
+
+    public function Books()
+    {
+        return $this->hasMany(Books::class);
+    }
 }
