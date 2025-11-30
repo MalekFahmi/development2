@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('author');
-            $table->integer('price');
+            $table->text('description');
+            $table->integer('price',7,2);
+            $table->integer('qtyInStock');
             $table->integer('year');
             $table->string('publisher');
-            $table->string('picture');
+            $table->string('picture')->nullable();
             $table->integer('type_id');
             $table->timestamps();
         });

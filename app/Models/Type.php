@@ -14,6 +14,10 @@ class Type extends Model
 
     public function Books()
     {
-        return $this->hasMany(Books::class);
+        return $this->hasMany(Books::class,'type_id','id');
+    }
+
+    public function categoryType(){
+        return $this->belongsTo(Category::class,'category_id','id');
     }
 }

@@ -11,6 +11,6 @@ class Classification extends Model
     ];
     public function category()
     {
-        return $this->hasMany(Category::class);
+        return $this->hasMany(Category::class,'class_id','id');
     }
 }
