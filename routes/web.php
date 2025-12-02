@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\categorycontroller;
 use App\Http\Controllers\Admin\classificationcontroller;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\TypeController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,4 +44,18 @@ Route::resource('types',TypeController::class)->names(
     'destroy'=>'types.destroy',
 ]);
 
+
+Route::resource('books',BookController::class)->names(
+    ['index'=>'books.index',
+    'show'=>'books.show',
+    'create'=>'books.create',
+    'update'=>'books.update',
+    'edit'=>'books.edit',
+    'store'=>'books.store',
+    'destroy'=>'books.destroy',
+]);
+
+Route::resource('dashboard',DashboardController::class)->names(
+    ['index'=>'dashboard.index',
+]);
 });

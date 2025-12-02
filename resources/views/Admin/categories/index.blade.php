@@ -43,7 +43,7 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $category->name }}</td>
                         <!-- Display Classification name (assuming category has a 'classification' relationship) -->
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ $category->classification->name ?? 'N/A' }}
+                            {{ $category->Classcategory->name ?? 'N/A' }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-4">
                             <!-- Edit Link -->

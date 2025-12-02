@@ -41,6 +41,16 @@
                         Types
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('admin.books.index') }}" class="hover:text-indigo-600 transition duration-150">
+                        Books
+                    </a>
+                </li>
+                <li>
+    <a href="{{ route('admin.dashboard.index') }}" class="hover:text-indigo-600 transition duration-150">
+        Dashboard
+    </a>
+</li>
             </ul>
         </div>
     </nav>

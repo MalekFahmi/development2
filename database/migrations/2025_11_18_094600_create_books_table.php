@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('author');
             $table->text('description');
-            $table->integer('price',7,2);
+            $table->integer('price')->unsigned();
             $table->integer('qtyInStock');
             $table->integer('year');
             $table->string('publisher');

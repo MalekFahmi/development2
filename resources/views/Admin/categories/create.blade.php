@@ -33,23 +33,28 @@
 
                 <!-- Classification Assignment Field -->
                 <div class="mb-6">
-                    <label for="classification_id" class="block text-sm font-medium text-gray-700 mb-2">Assign Classification</label>
-                    <select name="classification_id" id="classification_id" required 
-                            class="w-full px-4 py-2 border @error('classification_id') border-red-500 @else border-gray-300 @enderror rounded-lg focus:ring-indigo-500 focus:border-indigo-500 shadow-sm">
-                        
-                        <option value="">-- Select a Classification --</option>
-                        
-                        <!-- Loop through available classifications (Corrected variable to $classifications) -->
-                        @foreach ($classification as $classification)
-                        <option value="{{ $classification->id }}" 
-                                @if (old('class_id') == $classification->id) selected @endif>
-                            {{ $classification->name }}
-                        </option>
-                        @endforeach
+                <label for="class_id" class="block text-sm font-medium text-gray-700 mb-2">Assign Classification</label>
+                <select name="class_id" id="class_id" required 
+                        class="w-full px-4 py-2 border @error('class_id') border-red-500 @else border-gray-300 @enderror rounded-lg focus:ring-indigo-500 focus:border-indigo-500 shadow-sm">
+                    
+                    <option value="">-- Select a Classification --</option>
 
-                    </select>
+                    @foreach ($classification as $class)
+                    <option value="{{ $class->id }}" 
+                            @if (old('class_id') == $class->id) selected @endif>
+                        {{ $class->name }}
+                    </option>
+                    @endforeach
+
+                </select>
+
+                @error('class_id')
+                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
                     <!-- Display validation error -->
-                    @error('classification_id')
+                    @error('class_id')
                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>

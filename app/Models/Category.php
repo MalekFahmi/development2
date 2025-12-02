@@ -8,7 +8,7 @@ class Category extends Model
 {
     protected $fillable=[
         'name',
-        'calss_id'
+        'class_id'
     ];
 
     public function Type()
