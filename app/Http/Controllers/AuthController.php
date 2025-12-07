@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -36,5 +37,28 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         return redirect('/');
+    }
+
+
+    public function userLogin()
+    {
+        return view('auth.user-login');
+    }
+
+    public function userCheckLogin(Request $request)
+    {
+        $credentials = $request->validate([
+            'email'    => 'required|email',
+            'password' => 'required'
+        ]);
+
+        $user = User::where('email', $credentials['email'])->first();
+
+        if ($user && Hash::check($credentials['password'], $user->password)) {
+            Auth::guard('admin')->login($user);
+            return redirect()->route('admin.dashboard.index')->with('success', 'Welcome!');
+        }
+
+        return back()->with('error', 'Invalid email or password');
     }
 }

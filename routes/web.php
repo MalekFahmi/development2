@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\classificationcontroller;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\User\UserBookController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -55,6 +56,8 @@ Route::resource('books',BookController::class)->names(
     'destroy'=>'books.destroy',
 ]);
 
+
+
 Route::resource('dashboard',DashboardController::class)->names(
     ['index'=>'dashboard.index',
 ]);
@@ -62,3 +65,9 @@ Route::resource('dashboard',DashboardController::class)->names(
 Route::get('/login', [AuthController::class, 'adminLogin'])->name('login');
 Route::post('/Checklogin', [AuthController::class, 'adminCheckLogin'])->name('check');
 });
+
+Route::resource('user/books',UserBookController::class)->names(
+    ['index'=>'user.books.index']);
+
+Route::get('/user/login', [AuthController::class, 'userLogin'])->name('user.login');
+Route::post('/user/check', [AuthController::class, 'userCheckLogin'])->name('user.check');
