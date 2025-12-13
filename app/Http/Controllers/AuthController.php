@@ -55,8 +55,8 @@ class AuthController extends Controller
         $user = User::where('email', $credentials['email'])->first();
 
         if ($user && Hash::check($credentials['password'], $user->password)) {
-            Auth::guard('admin')->login($user);
-            return redirect()->route('admin.dashboard.index')->with('success', 'Welcome!');
+            Auth::guard('web')->login($user);
+            return redirect()->route('user.Home.index')->with('success', 'Welcome!');
         }
 
         return back()->with('error', 'Invalid email or password');

@@ -10,8 +10,8 @@ class UserBookController extends Controller
 {
     public function index()
     {
-        $books=Books::orderByDesc('create_at')->get();
-        return view('',compact('books'));
+        $books=Books::orderByDesc('created_at')->get();
+        return view('user.Home.index',compact('books'));
     }
 
     public function search(Request $request)
@@ -21,7 +21,6 @@ class UserBookController extends Controller
         $query->where('title','LIKE',$request->title.'%');
         }
         $books=$query->get();
-        return view('',compact('books'));
+        return view('user.Home.index',compact('books'));
     }
-    
 }
