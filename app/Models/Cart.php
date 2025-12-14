@@ -21,5 +21,19 @@ class Cart extends Model
     {
         return $this->belongsTo(Books::class,'book_id','id');
     }
+
+    protected $appends = ['total'];
+    //doesn't save database
+
+    public function getTotalattribute(){
+       return $this->qtyInStock * $this->book->price;
+    }
+    public function decrease(){
+        return $this->book()->update(
+            [
+                'qtyInStock'=>$this->book->qtyInStock - $this->quantity
+            ]
+        );
+    }
 }
 

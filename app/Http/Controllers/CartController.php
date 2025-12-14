@@ -18,7 +18,7 @@ class CartController extends Controller
             'quantity'=>['nullable','numeric']
         ]);
         $input['user_id']=auth('web')->id();
-        $cart=Cart::where('user_id',auth('web')->id())->where('book_id');
+        $cart=Cart::where('user_id',auth('web')->id())->where('book_id')->first();
         if(!$cart){
             Cart::create($input);
             return redirect()->route('user.cart.index')->with('success');

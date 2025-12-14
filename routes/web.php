@@ -72,7 +72,7 @@ Route::resource('user/books',UserBookController::class)->names(
     ['index'=>'user.books.index']);
 
 Route::resource('user/cart',CartController::class)->names(
-    ['index'=>'cart.index',
+    ['index'=>'user.cart.index',
     'show'=>'cart.show',
     'create'=>'cart.create',
     'update'=>'cart.update',
@@ -80,13 +80,14 @@ Route::resource('user/cart',CartController::class)->names(
     'store'=>'cart.store',
     'destroy'=>'cart.destroy',
 ]);
-
+Route::post('user/cart/{book}/remove', [CartController::class, 'remove'])
+    ->name('cart.remove');
 Route::get('/user/login', [AuthController::class, 'userLogin'])->name('user.login');
 Route::post('/user/check', [AuthController::class, 'userCheckLogin'])->name('user.check');
 
 
 
-Route::get('/user/home', [UserBookController::class, 'index'])->name('user.home');
+Route::get('/user/home', [UserBookController::class, 'index'])->name('user.Home.index');
     Route::get('/user/books/search', [UserBookController::class, 'search'])->name('user.books.search');
 
 

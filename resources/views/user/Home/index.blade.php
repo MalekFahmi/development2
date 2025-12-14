@@ -9,7 +9,7 @@
     <div class="flex justify-between items-center mb-8">
         <h2 class="text-3xl font-bold text-gray-800">Welcome to the Book Store</h2>
 
-        <a href="{{ route('cart.index') }}" 
+        <a href="{{ route('user.cart.index') }}" 
            class="bg-indigo-600 text-white px-4 py-2 rounded-lg shadow hover:bg-indigo-700">
             🛒 My Cart
         </a>
