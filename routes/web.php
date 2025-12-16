@@ -17,8 +17,10 @@ Route::get('/', function () {
     return view('landing');
 });
 
+
 Route::prefix('admin')->name('admin.')->group(function () {
 
+Route::middleware('auth:admin')->group(function () {
 Route::resource('classifications',classificationcontroller::class)->names(
     ['index'=>'classifications.index',
     'show'=>'classifications.show',
@@ -63,13 +65,17 @@ Route::resource('books',BookController::class)->names(
 Route::resource('dashboard',DashboardController::class)->names(
     ['index'=>'dashboard.index',
 ]);
+});
 
 Route::get('/login', [AuthController::class, 'adminLogin'])->name('login');
 Route::post('/Checklogin', [AuthController::class, 'adminCheckLogin'])->name('check');
 });
 
-Route::resource('user/books',UserBookController::class)->names(
-    ['index'=>'user.books.index']);
+Route::middleware('auth:web')->group(function () {
+
+Route::resource('user/books', UserBookController::class)
+    ->only(['index'])
+    ->names(['index' => 'user.books.index']);
 
 Route::resource('user/cart',CartController::class)->names(
     ['index'=>'user.cart.index',
@@ -82,14 +88,14 @@ Route::resource('user/cart',CartController::class)->names(
 ]);
 Route::post('user/cart/{book}/remove', [CartController::class, 'remove'])
     ->name('cart.remove');
-Route::get('/user/login', [AuthController::class, 'userLogin'])->name('user.login');
-Route::post('/user/check', [AuthController::class, 'userCheckLogin'])->name('user.check');
-
 
 
 Route::get('/user/home', [UserBookController::class, 'index'])->name('user.Home.index');
-    Route::get('/user/books/search', [UserBookController::class, 'search'])->name('user.books.search');
+Route::get('/user/books/search', [UserBookController::class, 'search'])->name('user.books.search');
+});
 
+Route::get('/user/login', [AuthController::class, 'userLogin'])->name('user.login');
+Route::post('/user/check', [AuthController::class, 'userCheckLogin'])->name('user.check');
 
 
 Route::get('/login', function () : RedirectResponse {

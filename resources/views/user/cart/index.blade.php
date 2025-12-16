@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.user')
 
 @section('title', 'My Cart')
 
@@ -10,47 +10,67 @@
     @if($cart->count() == 0)
         <p class="text-gray-600 text-lg">Your cart is empty.</p>
     @else
-    <table class="w-full text-left bg-white rounded-xl shadow">
+    <table class="w-full text-left bg-white rounded-xl shadow-lg">
         <thead>
-            <tr class="text-gray-500 text-sm uppercase border-b">
+            <tr class="text-gray-500 text-xs font-semibold uppercase tracking-wider border-b">
                 <th class="py-3 px-4">Book</th>
-                <th class="py-3 px-4">Qty</th>
-                <th class="py-3 px-4">Actions</th>
+                <th class="py-3 px-4 w-16 text-center">Qty</th>
+                <th class="py-3 px-4 w-40">Actions</th>
             </tr>
         </thead>
 
-        <tbody class="text-gray-700">
+        <tbody class="text-gray-700 divide-y divide-gray-100">
             @foreach ($cart as $item)
-            <tr class="border-b">
-                <td class="py-3 px-4">
-                    <strong>{{ $item->book->title }}</strong><br>
-                    <span class="text-gray-500 text-sm">{{ $item->book->author }}</span>
+            <tr>
+                <td class="py-4 px-4">
+                    <strong class="text-base text-gray-800">{{ $item->book->title }}</strong><br>
+                    <span class="text-gray-500 text-sm italic">{{ $item->book->author }}</span>
                 </td>
 
-                <td class="py-3 px-4">{{ $item->quantity }}</td>
+                <td class="py-4 px-4 text-center text-lg font-medium">{{ $item->quantity }}</td>
 
-                <td class="py-3 px-4 flex gap-3">
+                <td class="py-4 px-4">
+                    <div class="flex items-center space-x-2">
 
-                    <!-- Increase -->
-                    <form action="{{ route('cart.update', $item->book_id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <button class="px-3 py-1 bg-green-600 text-white rounded-lg">+1</button>
-                    </form>
+                        <form action="{{ route('cart.update', $item->book_id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <button
+                                type="submit"
+                                title="Increase Quantity"
+                                class="w-8 h-8 flex items-center justify-center bg-green-500 text-white rounded-full transition duration-150 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                            >
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                            </button>
+                        </form>
 
-                    <!-- Decrease -->
-                    <form action="{{ route('cart.remove', $item->book_id) }}" method="POST">
-                        @csrf
-                        <button class="px-3 py-1 bg-yellow-600 text-white rounded-lg">-1</button>
-                    </form>
+                        @if ($item->quantity > 1)
+                        <form action="{{ route('cart.remove', $item->book_id) }}" method="POST">
+                            @csrf
+                            <button
+                                type="submit"
+                                title="Decrease Quantity"
+                                class="w-8 h-8 flex items-center justify-center bg-yellow-500 text-white rounded-full transition duration-150 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+                            >
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6"></path></svg>
+                            </button>
+                        </form>
+                        @endif
 
-                    <!-- Delete -->
-                    <form action="{{ route('cart.destroy', $item->book_id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="px-3 py-1 bg-red-600 text-white rounded-lg">Remove</button>
-                    </form>
+                        <form action="{{ route('cart.destroy', $item->book_id) }}" method="POST" class="ml-4">
+                            @csrf
+                            @method('DELETE')
+                            <button
+                                type="submit"
+                                title="Remove All of This Book"
+                                class="flex items-center justify-center px-3 py-2 text-sm bg-red-600 text-white font-medium rounded-lg transition duration-150 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+                            >
+                                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                Remove
+                            </button>
+                        </form>
 
+                    </div>
                 </td>
             </tr>
             @endforeach
