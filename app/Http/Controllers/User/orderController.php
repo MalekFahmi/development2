@@ -13,12 +13,12 @@ class orderController extends Controller
     public function index()
     {
         $orders=Order::with('Orderitem')->get();
-        return view('',compact('orders'));
+        return view('user.orders.index',compact('orders'));
     }
 
     public function show(Order $order){
-        $userorder=Order::with('Orderitem')->first();
-        return view('',compact('userorder'));
+        $order=Order::with('Orderitem')->first();
+        return view('user.orders.show',compact('order'));
     }
 
     public function store(Request $request){
@@ -28,15 +28,15 @@ class orderController extends Controller
             'note'=>['nullable']
         ]);
         $order=Order::latest()->first();
-        $orderid=$order->id;
         if(!$order){
             $orderid=1;
         }
         else{
+            $orderid=$order->id;
             $orderid=$orderid+1;
         }
-        $cartitem=Cart::where('user_id',auth('web')->id())->with('book')->get();
         $total=0;
+        $cartitem=Cart::where('user_id',auth('web')->id())->with('book')->get();
         foreach($cartitem as $item){
             OrderItem::create(
                 [
@@ -45,13 +45,22 @@ class orderController extends Controller
                     'quantity'=>$item->quantity
                 ]
                 );
+                $item->decrease();
+        $total=$total+$item->book->price;
+        $item->delete();
         }
         Order::create([
             'user_id'=>auth('web')->id(),
             'phonenumber'=>$input['phonenumber'],
             'location'=>$input['location'],
+            'price'       => $total,
             'note'=>$input['note'] ?? null
         ]);
-        return redirect()->route('')->with('success');
+        return redirect()->route('orders.index')->with('success');
     }
+    public function checkout()
+    {
+        return view('user.orders.checkout');
+    }
+
 }

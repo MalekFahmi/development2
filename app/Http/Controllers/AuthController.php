@@ -32,10 +32,14 @@ class AuthController extends Controller
         return back()->with('error', 'Invalid email or password');
     }
 
-    public function logout(Request $request)
+    public function Logout(Request $request)
     {
-        Auth::logout();
+        $guards=['admin','web'];
+        foreach($guards as $guard){
+        Auth::guard($guard)->logout();
+        }
         $request->session()->invalidate();
+        $request->session()->regenerate();
         return redirect('/');
     }
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\User\orderController;
 use App\Http\Controllers\User\UserBookController;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
@@ -65,6 +66,7 @@ Route::resource('books',BookController::class)->names(
 Route::resource('dashboard',DashboardController::class)->names(
     ['index'=>'dashboard.index',
 ]);
+Route::post('/logout', [AuthController::class, 'Logout'])->name('logout');
 });
 
 Route::get('/login', [AuthController::class, 'adminLogin'])->name('login');
@@ -92,6 +94,19 @@ Route::post('user/cart/{book}/remove', [CartController::class, 'remove'])
 
 Route::get('/user/home', [UserBookController::class, 'index'])->name('user.Home.index');
 Route::get('/user/books/search', [UserBookController::class, 'search'])->name('user.books.search');
+
+Route::resource('user/orders', orderController::class)
+    ->only(['index', 'show', 'store'])
+    ->names([
+        'index' => 'orders.index',
+        'show'  => 'orders.show',
+        'store' => 'orders.store',
+    ]);
+    
+Route::get('user/checkout', [orderController::class, 'checkout'])
+    ->name('orders.checkout');
+
+Route::post('user/logout', [AuthController::class, 'Logout'])->name('logout');
 });
 
 Route::get('/user/login', [AuthController::class, 'userLogin'])->name('user.login');

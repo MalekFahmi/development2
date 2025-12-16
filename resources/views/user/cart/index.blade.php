@@ -69,13 +69,21 @@
                                 Remove
                             </button>
                         </form>
-
                     </div>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+    {{-- ORDER BUTTON --}}
+<div class="mt-6 flex justify-end">
+    <a href="{{ route('orders.checkout') }}"
+   class="bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold shadow-md
+          hover:bg-indigo-700 transition duration-150">
+    🛒 Order Now
+</a>
+
+</div>
     @endif
 
 </div>

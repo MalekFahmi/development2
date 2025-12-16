@@ -34,10 +34,30 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('orders.index') }}"
+                       class="hover:text-indigo-600 transition duration-150">
+                        📦 My Orders
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('user.cart.index') }}"
                        class="hover:text-indigo-600 transition duration-150">
                         🛒 Cart
                     </a>
+                </li>
+
+                <!-- LOGOUT -->
+                <li>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button
+                            type="submit"
+                            class="text-red-600 hover:text-red-700 font-semibold transition duration-150"
+                        >
+                            Logout
+                        </button>
+                    </form>
                 </li>
             </ul>
         </div>

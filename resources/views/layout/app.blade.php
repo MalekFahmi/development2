@@ -26,32 +26,51 @@
 
             <!-- Navigation Links -->
             <ul class="flex items-center space-x-6 text-gray-700 font-medium">
-                <li>
-                    <a href="{{ route('admin.categories.index') }}" class="hover:text-indigo-600 transition duration-150">
-                        Categories
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.classifications.index') }}" class="hover:text-indigo-600 transition duration-150">
-                        Classifications
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.types.index') }}" class="hover:text-indigo-600 transition duration-150">
-                        Types
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.books.index') }}" class="hover:text-indigo-600 transition duration-150">
-                        Books
-                    </a>
-                </li>
-                <li>
-    <a href="{{ route('admin.dashboard.index') }}" class="hover:text-indigo-600 transition duration-150">
-        Dashboard
-    </a>
-</li>
-            </ul>
+
+    <li>
+        <a href="{{ route('admin.categories.index') }}" class="hover:text-indigo-600 transition duration-150">
+            Categories
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ route('admin.classifications.index') }}" class="hover:text-indigo-600 transition duration-150">
+            Classifications
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ route('admin.types.index') }}" class="hover:text-indigo-600 transition duration-150">
+            Types
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ route('admin.books.index') }}" class="hover:text-indigo-600 transition duration-150">
+            Books
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ route('admin.dashboard.index') }}" class="hover:text-indigo-600 transition duration-150">
+            Dashboard
+        </a>
+    </li>
+
+    <!-- LOGOUT -->
+    <li>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button
+                type="submit"
+                class="text-red-600 hover:text-red-700 font-semibold transition duration-150"
+            >
+                Logout
+            </button>
+        </form>
+    </li>
+
+</ul>
         </div>
     </nav>
 
